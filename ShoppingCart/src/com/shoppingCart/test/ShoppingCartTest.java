@@ -1,16 +1,9 @@
 package com.shoppingCart.test;
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -51,11 +44,59 @@ public class ShoppingCartTest {
 	}
 	
 	@Test
-	public void givenTwoApplesAndOneOrangeinTheCartThenCalculateCartTotal(){
+	public void givenTwoApplesAndOneOrangeinTheCartThenCalculateCartTotalNoSpecialOffer(){
+		apple.addFruitToCart();
+		apple.addFruitToCart();
+		Apple.HAS_SPECIAL_OFFER=false;
+		orange.addFruitToCart();
+		Orange.HAS_SPECIAL_OFFER=false;
+		assertEquals(1.45, testObj.getCartTotal(),0);
+	}
+	
+	
+	@Test
+	public void givenTwoApplesAndOneOrangeinTheCartThenCalculateCartTotalAppleHasSpecialOffer(){
+		Apple.HAS_SPECIAL_OFFER=true;
+		Orange.HAS_SPECIAL_OFFER=true;
+		apple.addFruitToCart();
+		apple.addFruitToCart();
+		orange.addFruitToCart();
+		assertEquals(0.85, testObj.getCartTotal(),0);
+	}
+	
+	@Test
+	public void givenThreeApplesAndOneOrangeinTheCartThenCalculateCartTotalWithSpecialSpecialOffers(){
+		Apple.HAS_SPECIAL_OFFER=true;
+		Orange.HAS_SPECIAL_OFFER=true;
+		apple.addFruitToCart();
 		apple.addFruitToCart();
 		apple.addFruitToCart();
 		orange.addFruitToCart();
 		assertEquals(1.45, testObj.getCartTotal(),0);
+	}
+	@Test
+	public void givenThreeOrangesAndTwoAppleinTheCartThenCalculateCartTotalWithSpecialOffers(){
+		Apple.HAS_SPECIAL_OFFER=true;
+		Orange.HAS_SPECIAL_OFFER=true;
+		apple.addFruitToCart();
+		apple.addFruitToCart();
+		orange.addFruitToCart();
+		orange.addFruitToCart();
+		orange.addFruitToCart();
+		assertEquals(1.1, testObj.getCartTotal(),0);
+	}
+	@Test
+	public void givenFiveOrangesAndTwoAppleinTheCartThenCalculateCartTotalWithSpecialOffers(){
+		Apple.HAS_SPECIAL_OFFER=true;
+		Orange.HAS_SPECIAL_OFFER=true;
+		apple.addFruitToCart();
+		apple.addFruitToCart();
+		orange.addFruitToCart();
+		orange.addFruitToCart();
+		orange.addFruitToCart();
+		orange.addFruitToCart();
+		orange.addFruitToCart();
+		assertEquals(1.6, testObj.getCartTotal(),0);
 	}
 	
 
